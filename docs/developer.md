@@ -17,10 +17,10 @@ Si estás trabajando en el desarrollo de esta biblioteca, puedes instalarla de f
 📁 **Estructura típica del proyecto**
 
 ```bash
-mi_libreria/               # Raíz del proyecto
-├── mi_libreria/           # Código fuente de la biblioteca
+SlidePyV6-Library/               # Raíz del proyecto
+├── slidepyv6/           # Código fuente de la biblioteca
 │   ├── __init__.py
-│   └── modulo.py
+│   └── core.py
 ├── setup.py               # Configuración para instalación
 ├── README.md
 ```
@@ -32,5 +32,5 @@ mi_libreria/               # Raíz del proyecto
 - Puedes probar la biblioteca importándola normalmente desde cualquier archivo Python:
 
     ```python
-    from mi_libreria import modulo
+    from slidepyv6 import core
     ```

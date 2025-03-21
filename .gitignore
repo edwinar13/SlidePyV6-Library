@@ -1,0 +1,11 @@
+# Ignorar entorno virtual
+venv/
+.env/
+
+# Ignorar archivos de desarrollo
+dev/
+
+# Ignorar archivos de instalación
+*.egg-info/
+__pycache__/
+*.pyc
