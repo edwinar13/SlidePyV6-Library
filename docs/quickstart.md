@@ -23,7 +23,7 @@ Los atributos de un objeto `SlideProject` permiten acceder a los datos del proye
 - **(Para versión 0.2.0)** Puedes obtener un diccionario de cada atributo utilizando el método `as_dict()`.  
   - Ejemplo: `proyecto.metadata.as_dict()`  
 
-(Ejemplo: Para ver ejemplos avanzados, consulta la [guía de inicio rápido](./docsy/quickstart.md) para detalles técnicos.)  
+(Ejemplo: Para ver ejemplos avanzados, consulta la [guía de inicio rápido](./docs/quickstart.md) para detalles técnicos.)  
 
 ### Acceder a metadatos  
 Los metadatos permiten obtener información general del proyecto, como la versión, el autor, la fecha de creación, entre otros.  

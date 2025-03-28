@@ -41,7 +41,7 @@ print(f"Autor: {proyecto.metadata.author}")
 -----------------------
 
 # Ejemplo avanzado
-Para ver ejemplos avanzados, consulta la [guía de inicio rápido](./docsy/quickstart.md) para obtener detalles técnicos.
+Para ver ejemplos avanzados, consulta la [guía de inicio rápido](./docs/quickstart.md) para obtener detalles técnicos.
 
 -----------------------
 
@@ -77,7 +77,7 @@ Las clases reflejan parte del contenido de un archivo .slim y permiten acceder a
 # Contribución
 
 ## 🛠️ Codificando
-Si deseas contribuir al desarrollo de SlidePyV6, consulta la [guía para desarrolladores](./docsy/developer.md) para obtener detalles técnicos.
+Si deseas contribuir al desarrollo de SlidePyV6, consulta la [guía para desarrolladores](./docs/developer.md) para obtener detalles técnicos.
 
 ## 💰 Donando
 Si este proyecto te ha sido útil, considera hacer una donación para apoyar su desarrollo continuo.
@@ -94,7 +94,7 @@ Si este proyecto te ha sido útil, considera hacer una donación para apoyar su 
 -----------------------
 
 # Licencia
-Distribuido bajo licencia MIT. Consulta el archivo [LICENSE](./LICENSE) para más detalles.
+Distribuido bajo licencia MIT. Consulta el archivo [LICENSE](/LICENSE) para más detalles.
 
 -----------------------
 
