@@ -1,3 +1,15 @@
+# Guia para Desarrolladores
+Esta guía está dirigida a desarrolladores que deseen contribuir al desarrollo de la biblioteca `slidepyv6`.
+
+🧑🏽‍💻 **Para la contribución en el desarrollo de esta biblioteca deberás:**
+
+    1. Haz fork del repositorio
+    2. Crea una rama (git checkout -b feature/nueva-funcionalidad)
+    3. Realiza commits descriptivos
+    4. Haz push a la rama (git push origin feature/nueva-funcionalidad)
+    5. Abre un Pull Request   
+
+
 
 📦 **Usar esta biblioteca en desarrollo (modo editable)**
 
@@ -32,5 +44,11 @@ SlidePyV6-Library/               # Raíz del proyecto
 - Puedes probar la biblioteca importándola normalmente desde cualquier archivo Python:
 
     ```python
-    from slidepyv6 import core
+    from slidepyv6 import SlideProject
+    ```
+
+- Si necesitas desinstalar la biblioteca en modo editable, puedes hacerlo con el comando:
+
+    ```bash
+    pip uninstall slidepyv6
     ```

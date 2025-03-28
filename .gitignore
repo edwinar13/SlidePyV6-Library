@@ -9,3 +9,7 @@ dev/
 *.egg-info/
 __pycache__/
 *.pyc
+
+# Ignorar carpetas de distribución
+dist/
+build/

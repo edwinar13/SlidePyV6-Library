@@ -1,16 +1,16 @@
-# slidepyv6/io.py
+from ..utils.exceptions import SlideFileError, SlideTempDirectoryError
+from ..models.metadata import ProjectMetadata
+from ..models.properties import ProjectProperties
+from ..models.geometries import ProjectGeometry
+from ..models.loads import ProjectLoads
+from ..models.results import ProjectResults
+from .parsers.input_parser import InputParser
+from .parsers.output_parser import OutputParser
 import zipfile
 import tempfile
 import shutil
 from pathlib import Path
-from typing import Union, Optional, Tuple, List
 import logging
-from ..utils.exceptions import SlideFileError, SlideTempDirectoryError
-from ..models.metadata import ProjectMetadata
-from ..models.properties import ProjectProperties
-from .parsers.input_parser import InputParser
-from .parsers.output_parser import OutputParser
-
 
 logger = logging.getLogger(__name__)
 
@@ -35,24 +35,24 @@ class SlideProjectIO:
         self._full_parse()
 
 
-
-
     # ---------------------------------------------------------
     #                      Metodos Protegidos 
     # ---------------------------------------------------------
     def _full_parse(self):
         """Realiza la validación y parseo completo del proyecto"""
-        self._validate_input_file()
-        self._decompress_project()
-        self._parse_files()
-        self.inputContentSave()
-        self.outputContentSave()
-        return
+
         try:
             # *****************************************************
+            self._validate_input_file()
+            self._decompress_project()
+            self._parse_files()
+            
+            '''
             # esto es temporal para debug
             self.inputContentSave()
             self.outputContentSave()
+
+            '''
             # *****************************************************
         except Exception as e:
             self.cleanup()
@@ -105,7 +105,7 @@ class SlideProjectIO:
             
         try:
             # Usamos tempfile para mejor manejo de permisos y seguridad
-            temp_dir = tempfile.mkdtemp(prefix="slidepy_")
+            temp_dir = tempfile.mkdtemp(prefix="slidepyv6_")
             self._temp_dir = Path(temp_dir)
             logger.debug(f"Directorio temporal creado: {self._temp_dir}")
             return self._temp_dir
@@ -157,7 +157,6 @@ class SlideProjectIO:
             output_file.touch()
 
 
-
     def _parse_files(self):
         """Parsea y carga todos los datos a memoria"""
 
@@ -184,8 +183,6 @@ class SlideProjectIO:
             raise SlideFileError(f"Error parsing files: {e}") from e
 
 
-
-
     # ---------------------------------------------------------
     #                      Metodos Publicos 
     # ---------------------------------------------------------
@@ -196,33 +193,19 @@ class SlideProjectIO:
     @property
     def properties(self) -> ProjectProperties:    
         return self._parsed_data['properties']
-    
-
-
-
 
     @property
-    def geometry(self):
+    def geometry(self) -> ProjectGeometry:
         return self._parsed_data['geometry']
     
+
     @property
-    def soils(self):
-        return self._parsed_data['soils']
-    
-    @property
-    def anchors(self):
-        return self._parsed_data['anchors']
-    
-    @property
-    def loads(self):
+    def loads(self) -> ProjectLoads:
         return self._parsed_data['loads']
     
     @property
-    def results(self):
+    def results(self) -> ProjectResults:
         return self._parsed_data['results']
-
-
-
 
 
     # ##################################################
@@ -298,58 +281,3 @@ class SlideProjectIO:
         with open('input.txt', 'w') as f:
             for line in lines:
                 f.write(line + '\n')
-
-'''
-
-    def write_project_file(self, suffix: str, content: Union[str, bytes]) -> None:
-        """
-        Escribe contenido en un archivo del proyecto
-        
-        Args:
-            suffix: Extensión del archivo a modificar (.sli, etc.)
-            content: Contenido a escribir (str o bytes)
-        """
-        if not self._temp_dir:
-            raise SlideFileError("Proyecto no descomprimido")
-            
-        target_file = next(self._temp_dir.glob(f"*{suffix}"), None)
-        
-        if not target_file:
-            raise SlideFileError(f"Archivo con extensión {suffix} no existe")
-            
-        try:
-            if isinstance(content, str):
-                target_file.write_text(content, encoding='utf-8')
-            else:
-                target_file.write_bytes(content)
-        except Exception as e:
-            raise SlideFileError(f"Error escribiendo archivo {suffix}: {e}") from e
-
-    def save_project(self, output_path: Union[str, Path], overwrite: bool = False) -> None:
-        """
-        Guarda el proyecto modificado en una nueva ubicación
-        
-        Args:
-            output_path: Ruta de destino para el nuevo .slim
-            overwrite: Sobrescribir archivo existente (default: False)
-        """
-        output_path = Path(output_path).absolute()
-        
-        if output_path.exists() and not overwrite:
-            raise SlideFileError(f"Archivo de salida ya existe: {output_path}")
-            
-        if not self._temp_dir:
-            raise SlideFileError("No hay cambios para guardar")
-            
-        try:
-            with zipfile.ZipFile(output_path, 'w') as zipf:
-                for file_path in self._temp_dir.rglob('*'):
-                    if file_path.is_file():
-                        arcname = file_path.relative_to(self._temp_dir)
-                        zipf.write(file_path, arcname)
-        except Exception as e:
-            if output_path.exists():
-                output_path.unlink()  # Limpiar archivo parcial
-            raise SlideFileError(f"Error guardando proyecto: {e}") from e
-
-'''

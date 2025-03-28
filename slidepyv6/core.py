@@ -1,24 +1,16 @@
 #  imports
 from .io.io import SlideProjectIO
-from typing import  List
-from pathlib import Path
-import logging
 from .utils.exceptions import SlideError
 from .models.metadata import ProjectMetadata
 from .models.properties import ProjectProperties
 from .models.geometries import ProjectGeometry
-from .models.loads import Force
+from .models.loads import ProjectLoads
 from .models.results import ProjectResults
-
-from .models.properties import MohrCoulombParams, UndrainedParams, NoStrengthParams, InfiniteStrengthParams, HoekBrownParams, GeneralHoekBrownParams
-from .models.properties import EndAnchoredParams,  GeoTextileParams, GroutedTiebackParams, GroutedTiebackFrictionParams, MicroPileParams, SoilNailParams
-
+from pathlib import Path
+import logging
 
 # logging
 logger = logging.getLogger(__name__)
-
-
-
 
 class SlideProject:
     
@@ -34,9 +26,8 @@ class SlideProject:
 
 
     def __del__(self):
-        """Destructor que asegura la limpieza de recursos"""
-        pass
-        #self._io.cleanup()
+        """Destructor que asegura la limpieza de recursos"""        
+        self._io.cleanup()
 
     # Metadatos  -------------------------------------------------    
     @property       
@@ -58,7 +49,7 @@ class SlideProject:
 
     # Cargas -------------------------------------------------    
     @property
-    def loads(self) -> List[Force]:
+    def loads(self) -> ProjectLoads:
         """Obtiene la lista de cargas"""
         return self._io.loads
    
@@ -67,19 +58,20 @@ class SlideProject:
     def results(self) -> ProjectResults:
         """Obtiene la lista de resultados"""
         if not self._io.get_has_results():
-            raise SlideError("El proyecto no tiene resultados")
+            raise SlideError("El proyecto no tiene resultados, ejecute el analisis en Slide")
         return self._io.results
 
 
+    # Métodos  ---------------------------------------------------------
 
-
-    # Métodos de ayuda ---------------------------------------------------------
+    # Obtiene el FS mínimo de todos los métodos
     def get_min_safety_factor(self) -> float:
         """Obtiene el FS mínimo de todos los métodos"""
         if not self._io.get_has_results():
             raise SlideError("El proyecto no tiene resultados")
-        return min(min.fs for min in self._io.results.global_minimums_fs)
+        return min(min.surface.fs for min in self._io.results.global_minimums)
 
+    # Obtiene la superficie crítica con menor FS
     def get_critical_surface(self) -> dict:
         """Obtiene la superficie crítica con menor FS"""
         if not self._io.get_has_results():
@@ -87,16 +79,21 @@ class SlideProject:
         
         min_fs = self.get_min_safety_factor()
         critical = next(
-            (m for m in self._io.results.global_minimums_fs if m.fs == min_fs), 
+            (m for m in self._io.results.global_minimums if m.surface.fs == min_fs), 
             None
         )
+        surface_critical = critical.surface
         return {
-            "center": (critical.xc, critical.yc),
-            "radius": critical.r,
-            "fs": critical.fs,
-            "method": critical.method
+            "center": (surface_critical.point_center.x, surface_critical.point_center.y),
+            "radius": surface_critical.radius,
+            "fs": surface_critical.fs,
+            "method": surface_critical.method
         }
 
+    # verifica si el proyecto ha sido ejecutado (tiene o no reusltados)
+    def has_results(self) -> bool:
+        """Verifica si el proyecto ha sido ejecutado"""
+        return self._io.get_has_results()
 
 
 
@@ -107,7 +104,7 @@ class SlideProject:
 
 '''
     ############################################################
-    #                    REVISAR OJO CON ESTO
+    #         REVISAR ESTO PARA LECTURA DE PROYECTO
     ############################################################
 
     def has_results(self) -> bool:
@@ -125,21 +122,6 @@ class SlideProject:
         except Exception as e:
             raise SlideError(f"Error guardando proyecto: {e}") from e
         
-'''
-
-
-'''
-
-    def _parse_project(self) -> None:
-        """Parsea todos los archivos del proyecto"""
-        try:
-            self._parse_input_file()
-            self._parse_output_file()
-        except Exception as e:
-            raise SlideError(f"Error al parsear archivos del proyecto: {e}") from e
-
-
-
     # para usar el SlideProject como un context manager    
     def __enter__(self):
         """Context manager para manejo seguro de recursos"""
@@ -168,6 +150,4 @@ class SlideProject:
         self._io.cleanup()        
         self._is_modified = False    
     
-
-
 '''

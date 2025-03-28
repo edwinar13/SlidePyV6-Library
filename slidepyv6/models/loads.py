@@ -6,28 +6,67 @@ from .geometries import Point
 #       clase base
 #####################################
 
+'''
+carga dristribuida
+['1', 'type:', '0', 'x1:', '6', 'y1:', '15', 'x2:', '3', 'y2:', '15', 'angle:', '270', 'load:', '100', 'load2:', '100', 'stage2:', '0', 'design_standard_option:', '0']
+carga lineal
+['3', 'type:', '1', 'x1:', '14', 'y1:', '15',                           'angle:', '270', 'load:', '30',                 'stage2:', '0', 'design_standard_option:', '0']
+'''
+
 @dataclass
-class Force:
+class Load:
     """
-    Representa una fuerza aplicada.
+    Representa una carga.
 
     Atributos:
     ----------
-        id (int): Identificador único para la fuerza.
-        point1 (Point): El punto de inicio de la fuerza.
-        point2 (Point): El punto final de la fuerza.
-        angle (float): El ángulo en el que se aplica la fuerza.
+        point (Point): El punto de la carga.
+        magnitude (float): La magnitud de la carga.
+    """
+
+    point: Point
+    magnitude: float
+
+@dataclass
+class LinearLoad():
+    """
+    Representa una carga lineal aplicada.
+
+    Atributos:
+    ----------
+        id (int): Identificador único para la carga.
         type_load (int): El tipo de carga (por ejemplo, puntuales, distribuidas, etc.).
-        load (float): La magnitud de la carga principal.
-        load2 (float | None): La magnitud de la carga secundaria, si aplica.
+        angle (float): El ángulo en el que se aplica la carga.
+        load (Load): Carga principal.
+        
     """
     id: int
-    point1: Point
-    point2: Point
-    angle: float
     type_load: int
-    load: float
-    load2: float | None
+    angle: float
+    load: Load
+
+
+@dataclass
+class DistributedLoad():
+    """
+    Representa una carga distribuida aplicada.
+
+    Atributos:
+    ----------
+        id (int): Identificador único para la carga.
+        type_load (int): El tipo de carga (por ejemplo, puntuales, distribuidas, etc.).
+        angle (float): El ángulo en el que se aplica la carga.
+        load (float): Carga principal.
+        load2 (float): Carga secundaria.
+    """
+    id: int
+    type_load: int
+    angle: float
+    load: Load
+    load2: Load
+
+
+
 
 @dataclass
 class ProjectLoads:
@@ -36,6 +75,8 @@ class ProjectLoads:
 
     Atributos:
     ----------
-        forces (List[Force]): Lista de fuerzas aplicadas al modelo.
+        linear (List[LinearLoad]): Lista de cargas lineales.
+        distributed (List[DistributedLoad]): Lista de cargas distribuidas.
     """
-    forces: List[Force]
+    linear: List[LinearLoad]
+    distributed: List[DistributedLoad]
