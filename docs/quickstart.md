@@ -23,7 +23,6 @@ Los atributos de un objeto `SlideProject` permiten acceder a los datos del proye
 - **(Para versión 0.2.0)** Puedes obtener un diccionario de cada atributo utilizando el método `as_dict()`.  
   - Ejemplo: `proyecto.metadata.as_dict()`  
 
-(Ejemplo: Para ver ejemplos avanzados, consulta la [guía de inicio rápido](./docs/quickstart.md) para detalles técnicos.)  
 
 ### Acceder a metadatos  
 Los metadatos permiten obtener información general del proyecto, como la versión, el autor, la fecha de creación, entre otros.  
@@ -32,7 +31,7 @@ Los metadatos permiten obtener información general del proyecto, como la versi�
 metadatos = proyecto.metadata
 ```
 
-El ejemplo de [metadatos](./examples/2_metadata_example.py) muestra cómo acceder a los metadatos de un proyecto de forma básica.  
+El ejemplo de [metadatos](../examples/2_metadata_example.py) muestra cómo acceder a los metadatos de un proyecto de forma básica.  
 
 ### Acceder a propiedades  
 Tanto los materiales como los soportes presentan propiedades que definen su comportamiento en el proyecto.  
@@ -41,7 +40,7 @@ Tanto los materiales como los soportes presentan propiedades que definen su comp
 propiedades = proyecto.properties
 ```
 
-El atributo `properties` devuelve un listado de las propiedades de materiales y soportes, las cuales pueden ser accedidas mediante los atributos `materials` y `supports`, como se muestra en el ejemplo de [propiedades](./examples/3_properties_example.py).  
+El atributo `properties` devuelve un listado de las propiedades de materiales y soportes, las cuales pueden ser accedidas mediante los atributos `materials` y `supports`, como se muestra en el ejemplo de [propiedades](../examples/3_properties_example.py).  
 
 ### Acceder a geometría  
 La geometría de un proyecto se compone principalmente de vértices, los cuales definen las celdas que conforman los diferentes materiales del proyecto. Estos vértices sirven para definir el contorno exterior del modelo, la pendiente superior, el nivel de agua, entre otros elementos.  
@@ -54,7 +53,7 @@ geometria = proyecto.geometry
 
 Para acceder a la geometría de un proyecto, se debe utilizar el atributo `geometry` del objeto `SlideProject`. Este atributo contiene información sobre los vértices, celdas, límites de análisis y soportes del proyecto. Estos pueden ser accedidos mediante los atributos `vertex`, `cells`, `exterior`, `slope`, `limits`, `water_table_vertex` y `supports`.  
 
-El ejemplo de [geometría](./examples/4_geometry_example.py) muestra cómo acceder a la geometría de un proyecto de forma básica.  
+El ejemplo de [geometría](../examples/4_geometry_example.py) muestra cómo acceder a la geometría de un proyecto de forma básica.  
 
 ### Acceder a cargas  
 Las cargas de un proyecto pueden ser de dos tipos: lineales y distribuidas.  
@@ -65,7 +64,7 @@ cargas = proyecto.loads
 
 Para acceder a las cargas de un proyecto, se debe utilizar el atributo `loads` del objeto `SlideProject`. Este atributo contiene información sobre las cargas lineales y distribuidas, las cuales pueden ser accedidas mediante los atributos `linear` y `distributed`.  
 
-El ejemplo de [cargas](./examples/5_loads_example.py) muestra cómo acceder a las cargas de un proyecto de forma básica.  
+El ejemplo de [cargas](../examples/5_loads_example.py) muestra cómo acceder a las cargas de un proyecto de forma básica.  
 
 ### Acceder a resultados  
 Los resultados de un proyecto incluyen los métodos de análisis, los factores de seguridad y las superficies de falla.  
@@ -76,7 +75,7 @@ resultados = proyecto.results
 
 Para acceder a los resultados de un proyecto, se debe utilizar el atributo `results` del objeto `SlideProject`. Este atributo contiene información sobre los métodos de análisis, los factores de seguridad y las superficies de falla, los cuales pueden ser accedidos mediante los atributos `methods`, `surfaces` y `global_minimums`.  
 
-El ejemplo de [resultados](./examples/6_results_example.py) muestra cómo acceder a los resultados de un proyecto de forma básica.  
+El ejemplo de [resultados](../examples/6_results_example.py) muestra cómo acceder a los resultados de un proyecto de forma básica.  
 
 ## Métodos  
 Los métodos de un objeto `SlideProject` permiten realizar operaciones y/o consultas específicas sobre el proyecto.  
