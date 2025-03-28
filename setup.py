@@ -3,6 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name="slidepyv6",
     version="0.1.0",    
+    packages=find_packages(['slidepyv6']),
     author="Edwin Arevalo",
     author_email="terrioingeniera@gmail.com",
     description="Librería para leer y analizar archivos de proyectos geotécnicos en formato .SLIM de Slide V6 (Rocscience)",
