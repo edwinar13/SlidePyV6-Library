@@ -94,7 +94,7 @@ Si este proyecto te ha sido útil, considera hacer una donación para apoyar su 
 -----------------------
 
 # Licencia
-Distribuido bajo licencia MIT. Consulta el archivo [LICENSE](/LICENSE) para más detalles.
+Distribuido bajo licencia MIT. Consulta el archivo [LICENSE](./LICENSE.txt) para más detalles.
 
 -----------------------
 
