@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="slidepyv6",
-    version="0.1.2",    
+    version="0.1.4",    
     packages=find_packages(include=['slidepyv6', 'slidepyv6.*']),
     author="Edwin Arevalo",
     author_email="terrioingeniera@gmail.com",

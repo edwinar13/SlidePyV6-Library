@@ -26,8 +26,10 @@ class SlideProject:
 
 
     def __del__(self):
-        """Destructor que asegura la limpieza de recursos"""        
-        self._io.cleanup()
+        """Destructor que asegura la limpieza de recursos"""     
+        if hasattr(self, "_io"):
+            self._io.cleanup()   
+      
 
     # Metadatos  -------------------------------------------------    
     @property       
