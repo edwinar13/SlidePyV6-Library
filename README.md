@@ -5,6 +5,9 @@
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![Licencia](https://img.shields.io/badge/Licencia-MIT-green)
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-blue?logo=github)](https://github.com/edwinar13/SlidePyV6-Library)
+
+
 
 ## Características principales
 - **Lectura de proyectos**: Carga todos los componentes de un archivo .slim.
